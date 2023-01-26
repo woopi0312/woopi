@@ -4,10 +4,11 @@ using UnityEngine;
 
 enum EMoveType
 {
+    idle = 0,
     right = 1,
     down = 2,
-    left = 3,
-    up = 4,
+    hurt = 3,
+    jump = 4,
 }
 
 public class Charactercontroller : MonoBehaviour
@@ -21,16 +22,17 @@ public class Charactercontroller : MonoBehaviour
 
     bool isGround = false;
     bool _isGameOver = false;
-
+    bool _isHitted = false;
     GameObject _bullet;
 
 
-
+    public SpriteRenderer rend;
 
     void Start()
     {
         _rab = gameObject.GetComponent<Animator>();
         Application.targetFrameRate = 30;
+        rend = GetComponent<SpriteRenderer>();
     }
 
 
@@ -42,44 +44,51 @@ public class Charactercontroller : MonoBehaviour
 
     void move()
     {
-        Vector2 v2 = Vector2.zero;
+        bool isMove = false;
         //bool israbbits = false;
         if (Input.GetKey("d"))
         {
-            v2 += Vector2.right * Time.deltaTime * _speed;
+            isMove = true;
             //israbbits = false;
             _rab.SetInteger("player", (int)EMoveType.right);
             transform.Translate(Vector2.right * Time.deltaTime * _speed);
+            rend.flipX = false;
         }
         if (Input.GetKey("s"))
         {
-            v2 += Vector2.down * Time.deltaTime * _speed;
+            isMove= true;
             //israbbits = false;
             _rab.SetInteger("player", (int)EMoveType.down);
             transform.Translate(Vector2.down * Time.deltaTime * _speed);
         }
         if (Input.GetKey("a"))
         {
-            v2 += Vector2.left * Time.deltaTime * _speed;
+            isMove= true;
+            //v2 += Vector2.left * Time.deltaTime * _speed;
             //israbbits = false;
-            _rab.SetInteger("player", (int)EMoveType.left);
+            _rab.SetInteger("player", (int)EMoveType.right);
             transform.Translate(Vector2.left * Time.deltaTime * _speed);
+            rend.flipX = true;
+           
         }
         if(!isGround) return;
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            isMove= true;
+            _rab.SetInteger("player", (int)EMoveType.jump);
             transform.Translate(Vector3.up );
             isGround = false;
         }
-        if (v2 != Vector2.zero)
+        if (!isMove)
         {
-            _rab.SetInteger("idle", 0);
+            
+            _rab.SetInteger("player", 0);
         }
 
-        else
-        {
-            _rab.SetInteger("idle", 0);
-        }
+        //else if(v2 != Vector3.zero)
+        //{
+        //    _rab.SetInteger("player", 0);
+        //}
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -90,7 +99,9 @@ public class Charactercontroller : MonoBehaviour
         }
         if(collision.gameObject.tag == "Bullet2D")
         {
-            ResetPosition();
+            //ResetPosition();
+            _rab.SetInteger("player", 3);
+            _isHitted = true;
         }
     }
 
