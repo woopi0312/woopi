@@ -76,7 +76,8 @@ public class Charactercontroller : MonoBehaviour
         {
             isMove= true;
             _rab.SetInteger("player", (int)EMoveType.jump);
-            transform.Translate(Vector3.up );
+            //transform.Translate(Vector3.up );
+            GetComponent<Rigidbody2D>().AddForce(Vector3.up * 150);
             isGround = false;
         }
         if (!isMove)
