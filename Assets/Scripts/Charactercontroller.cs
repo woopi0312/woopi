@@ -16,6 +16,7 @@ public class Charactercontroller : MonoBehaviour
     [SerializeField] float _speed;
     [SerializeField] int _attack;
     [SerializeField] int _hp;
+    [SerializeField] GameUi _gameUi;
     //[SerializeField] GameObject _uiPanel;
     
     Animator _rab;
@@ -24,7 +25,7 @@ public class Charactercontroller : MonoBehaviour
     bool _isGameOver = false;
     bool _isHitted = false;
     GameObject _bullet;
-
+    string _heroName;
 
     public SpriteRenderer rend;
 
@@ -126,6 +127,11 @@ public class Charactercontroller : MonoBehaviour
         transform.position = new Vector3(-6.2f,-2.4f,0);
     }
 
+    public void SetHeroName(string _name)
+    {
+        _heroName = _name;
+        _gameUi.SetChangeName(_heroName);
+    }
 
 }
 
