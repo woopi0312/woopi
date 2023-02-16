@@ -17,7 +17,7 @@ public class Charactercontroller : MonoBehaviour
     [SerializeField] int _attack;
     [SerializeField] int _hp;
     [SerializeField] GameUi _gameUi;
-    //[SerializeField] GameObject _uiPanel;
+    [SerializeField] GameObject _uiPanel;
     
     Animator _rab;
 
@@ -78,7 +78,7 @@ public class Charactercontroller : MonoBehaviour
             isMove= true;
             _rab.SetInteger("player", (int)EMoveType.jump);
             //transform.Translate(Vector3.up );
-            GetComponent<Rigidbody2D>().AddForce(Vector3.up * 150);
+            GetComponent<Rigidbody2D>().AddForce(Vector3.up * 300);
             isGround = false;
         }
         if (!isMove)
@@ -105,6 +105,10 @@ public class Charactercontroller : MonoBehaviour
             _rab.SetInteger("player", 3);
             _isHitted = true;
         }
+        if(collision.gameObject.tag == "Trap")
+        {
+            ResetPosition();
+        }
     }
 
     public void hitted()
@@ -114,7 +118,7 @@ public class Charactercontroller : MonoBehaviour
         if (_hp < 0)
         {
             _isGameOver = true;
-            //_uiPanel.SetActive(true);
+            _uiPanel.SetActive(true);
         }
     }
     public int getAttack()

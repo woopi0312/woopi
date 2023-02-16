@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Bullet2D
+  - Trap
   layers:
   - Default
   - TransparentFX
