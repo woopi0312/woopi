@@ -41,6 +41,7 @@ public class Monster : MonoBehaviour
     void Update()
     {
         if (isLive) move();
+        runCheck();
     }
 
     void move()
@@ -54,7 +55,7 @@ public class Monster : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Rabbit")
+        if (collision.gameObject.name == "Player")
         {
             //int attack = collision.gameObject.GetComponent<rabbits>().getAttack();
             //onHitted(attack); 

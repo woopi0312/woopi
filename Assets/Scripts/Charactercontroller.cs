@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 enum EMoveType
@@ -9,10 +10,13 @@ enum EMoveType
     down = 2,
     hurt = 3,
     jump = 4,
+    climb = 5,
 }
 
 public class Charactercontroller : MonoBehaviour
 {
+     Rigidbody2D myrigidbody;
+    
     [SerializeField] float _speed;
     [SerializeField] int _attack;
     [SerializeField] int _hp;
@@ -34,6 +38,7 @@ public class Charactercontroller : MonoBehaviour
         _rab = gameObject.GetComponent<Animator>();
         Application.targetFrameRate = 30;
         rend = GetComponent<SpriteRenderer>();
+        myrigidbody=GetComponent<Rigidbody2D>();
     }
 
 
@@ -41,6 +46,14 @@ public class Charactercontroller : MonoBehaviour
     {
         if (_isGameOver) return;
         move();
+
+        if (isLadder)
+        {
+            float ver = Input.GetAxis("Vertical");
+
+            myrigidbody.velocity = new Vector2(myrigidbody.velocity.x, ver * _speed);
+            _rab.SetInteger("player", (int)EMoveType.climb);
+        }
     }
 
     void move()
@@ -137,5 +150,25 @@ public class Charactercontroller : MonoBehaviour
         _gameUi.SetChangeName(_heroName);
     }
 
+    public bool isLadder;
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Ladder"))
+        {
+            isLadder = true;
+            Debug.Log("true");
+            myrigidbody.gravityScale = 0;
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Ladder"))
+        {
+            isLadder = false;
+            Debug.Log("false");
+            myrigidbody.gravityScale = 1;
+        }
+    }
 }
 
