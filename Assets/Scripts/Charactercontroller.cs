@@ -28,6 +28,7 @@ public class Charactercontroller : MonoBehaviour
     bool isGround = false;
     bool _isGameOver = false;
     bool _isHitted = false;
+    public bool isLadder = false;
     GameObject _bullet;
     string _heroName;
 
@@ -47,7 +48,7 @@ public class Charactercontroller : MonoBehaviour
         if (_isGameOver) return;
         move();
 
-        if (isLadder)
+        if (isLadder == true)
         {
             float ver = Input.GetAxis("Vertical");
 
@@ -114,8 +115,8 @@ public class Charactercontroller : MonoBehaviour
         }
         if(collision.gameObject.tag == "Bullet2D")
         {
-            //ResetPosition();
-            _rab.SetInteger("player", 3);
+            ResetPosition();
+            _rab.SetInteger("player",3);
             _isHitted = true;
         }
         if(collision.gameObject.tag == "Trap")
@@ -150,7 +151,6 @@ public class Charactercontroller : MonoBehaviour
         _gameUi.SetChangeName(_heroName);
     }
 
-    public bool isLadder;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Ladder"))
