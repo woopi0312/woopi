@@ -30,7 +30,7 @@ public class Shooter : MonoBehaviour
                 Vector3 dir = new Vector3(Mathf.Cos(deg * Mathf.Deg2Rad + degTemp), Mathf.Sin(deg * Mathf.Deg2Rad + degTemp), 0);
                 temp.GetComponent<Bullet>().Init(dir);
             }
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1f);
         }
     }    
         void Update()

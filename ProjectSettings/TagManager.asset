@@ -8,6 +8,7 @@ TagManager:
   - Bullet2D
   - Trap
   - Ladder
+  - MovingGround
   layers:
   - Default
   - TransparentFX
