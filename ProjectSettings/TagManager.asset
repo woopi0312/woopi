@@ -9,6 +9,7 @@ TagManager:
   - Trap
   - Ladder
   - MovingGround
+  - Slug
   layers:
   - Default
   - TransparentFX

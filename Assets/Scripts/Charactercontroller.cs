@@ -123,6 +123,11 @@ public class Charactercontroller : MonoBehaviour
         {
             ResetPosition();
         }
+        if(collision.gameObject.tag == "Slug")
+        {
+            ResetPosition();
+        }
+
     }
 
     public void hitted()
