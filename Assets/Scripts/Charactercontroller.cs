@@ -22,6 +22,7 @@ public class Charactercontroller : MonoBehaviour
     [SerializeField] int _hp;
     [SerializeField] GameUi _gameUi;
     [SerializeField] GameObject _uiPanel;
+    [SerializeField] GameObject _clearPanel;
     
     Animator _rab;
 
@@ -92,7 +93,7 @@ public class Charactercontroller : MonoBehaviour
             isMove= true;
             _rab.SetInteger("player", (int)EMoveType.jump);
             //transform.Translate(Vector3.up );
-            GetComponent<Rigidbody2D>().AddForce(Vector3.up * 300);
+            GetComponent<Rigidbody2D>().AddForce(Vector3.up * 250);
             isGround = false;
         }
         if (!isMove)
@@ -126,6 +127,12 @@ public class Charactercontroller : MonoBehaviour
         if(collision.gameObject.tag == "Slug")
         {
             ResetPosition();
+        }
+        if(collision.gameObject.tag == "Goal")
+        {
+            _isGameOver = true;
+            _clearPanel.SetActive(true);
+            _rab.SetInteger("player", (int)EMoveType.jump);
         }
 
     }

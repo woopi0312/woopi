@@ -10,6 +10,7 @@ TagManager:
   - Ladder
   - MovingGround
   - Slug
+  - Goal
   layers:
   - Default
   - TransparentFX
@@ -17,9 +18,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Player
+  - Bear
+  - Ground
   - 
   - 
   - 
