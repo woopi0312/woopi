@@ -12,11 +12,12 @@ public class Bear : MonoBehaviour
     Transform _player;
     public LayerMask groundLayer;
     Rigidbody2D rig;
+    public SpriteRenderer rend;
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
         _player = GameObject.Find("Player").transform;
-        Physics2D.IgnoreLayerCollision(5, 7);
+        Physics2D.IgnoreLayerCollision(9, 7);
     }
 
     
@@ -36,31 +37,29 @@ public class Bear : MonoBehaviour
                  rig.velocity = Vector2.up * _jumpPower;
             }
 
-            //if(Vector2.Distance(_player.position, transform.position) > _teldistance)
+            //if (Vector2.Distance(_player.position, transform.position) > _teldistance) 텔레포트
             //{
-            //    transform.position = _player.position;
-            //    _tel.gameObject.SetActive(true);
-            //    _tel.Play();
+            //    transform.position = (_player.position );
+                
             //}
-            //if(!_teldistance.isPlaying)
-            //{
-            //    _teldistance.gameObject.SetActive(false);
-            //}
+           
         }
-        
 
     }
+        //public ParticleSystem _tel;
 
     float DirectionBear()
     {
         if(transform.position.x - _player.position.x <0)
         {
             transform.eulerAngles = new Vector3(0, 180, 0);
+            rend.flipX = true;
             return 1;
         }
         else 
         {
             transform.eulerAngles = new Vector3(0, 0, 0);
+            
             return -1;
         }
     }

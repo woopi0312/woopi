@@ -59,6 +59,7 @@
     <Compile Include="Assets\Scripts\UI\GameUi.cs" />
     <Compile Include="Assets\Scripts\SlugMove.cs" />
     <Compile Include="Assets\Scripts\Monster.cs" />
+    <Compile Include="Assets\Scripts\Bear.cs" />
     <Compile Include="Assets\Scripts\UI\LobbyGameUi.cs" />
     <Compile Include="Assets\Scripts\Shooter.cs" />
     <Compile Include="Assets\Scripts\MonsterController.cs" />
@@ -69,7 +70,6 @@
     <Compile Include="Assets\Scripts\BulletRemove.cs" />
     <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
-    <Compile Include="Assets\Scripts\Bear.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

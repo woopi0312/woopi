@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 enum EMoveType
 {
@@ -23,7 +24,8 @@ public class Charactercontroller : MonoBehaviour
     [SerializeField] GameUi _gameUi;
     [SerializeField] GameObject _uiPanel;
     [SerializeField] GameObject _clearPanel;
-    
+    [SerializeField] GameObject _cage;
+
     Animator _rab;
 
     bool isGround = false;
@@ -137,6 +139,13 @@ public class Charactercontroller : MonoBehaviour
 
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "Event")
+        {
+            _cage.GetComponent<TilemapCollider2D>().enabled= false;
+        }
+    }
     public void hitted()
     {
         if (_hp < 0) return;
