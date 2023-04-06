@@ -16,7 +16,7 @@ public class Bear : MonoBehaviour
     void Start()
     {
         rig = GetComponent<Rigidbody2D>();
-        _player = GameObject.Find("Player").transform;
+        _player = GameObject.Find("PlayerBase").transform;
         Physics2D.IgnoreLayerCollision(9, 7);
     }
 

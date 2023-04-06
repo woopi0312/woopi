@@ -69,7 +69,7 @@ public class Charactercontroller : MonoBehaviour
             isMove = true;
             //israbbits = false;
             _rab.SetInteger("player", (int)EMoveType.right);
-            transform.Translate(Vector2.right * Time.deltaTime * _speed);
+            //transform.Translate(Vector2.right * Time.deltaTime * _speed);
             rend.flipX = false;
         }
         if (Input.GetKey("s"))
@@ -77,7 +77,7 @@ public class Charactercontroller : MonoBehaviour
             isMove= true;
             //israbbits = false;
             _rab.SetInteger("player", (int)EMoveType.down);
-            transform.Translate(Vector2.down * Time.deltaTime * _speed);
+            //transform.Translate(Vector2.down * Time.deltaTime * _speed);
         }
         if (Input.GetKey("a"))
         {
@@ -85,7 +85,7 @@ public class Charactercontroller : MonoBehaviour
             //v2 += Vector2.left * Time.deltaTime * _speed;
             //israbbits = false;
             _rab.SetInteger("player", (int)EMoveType.right);
-            transform.Translate(Vector2.left * Time.deltaTime * _speed);
+            //transform.Translate(Vector2.left * Time.deltaTime * _speed);
             rend.flipX = true;
            
         }
