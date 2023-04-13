@@ -6,6 +6,7 @@ public class ChangeDuck : MonoBehaviour
 {
     [SerializeField] GameObject _normalObj;
     [SerializeField] GameObject _duckObj;
+    [SerializeField] Transform _idletransform;
     void Update()
     {
         if(Input.GetKey("c"))
@@ -23,7 +24,7 @@ public class ChangeDuck : MonoBehaviour
         //CopyToRagdoll(_normalObj.transform, _duckObj.transform);
         _duckObj.SetActive(true);
         _normalObj.SetActive(false);
-        //_duckObj.transform.position = _normalObj.transform.position; 
+        _duckObj.transform.position = _idletransform.position;
     }
 
     void idle()

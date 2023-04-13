@@ -17,7 +17,7 @@ enum EMoveType
 public class Charactercontroller : MonoBehaviour
 {
      Rigidbody2D myrigidbody;
-    
+    [SerializeField] Transform _base;
     [SerializeField] float _speed;
     [SerializeField] int _attack;
     [SerializeField] int _hp;
@@ -28,7 +28,7 @@ public class Charactercontroller : MonoBehaviour
 
     Animator _rab;
 
-    bool isGround = false;
+    bool _isGround = false;
     bool _isGameOver = false;
     bool _isHitted = false;
     public bool isLadder = false;
@@ -53,9 +53,9 @@ public class Charactercontroller : MonoBehaviour
 
         if (isLadder == true)
         {
-            float ver = Input.GetAxis("Vertical");
+            //float ver = Input.GetAxis("Vertical");
 
-            myrigidbody.velocity = new Vector2(myrigidbody.velocity.x, ver * _speed);
+            //myrigidbody.velocity = new Vector2(myrigidbody.velocity.x, ver * _speed);
             _rab.SetInteger("player", (int)EMoveType.climb);
         }
     }
@@ -89,14 +89,14 @@ public class Charactercontroller : MonoBehaviour
             rend.flipX = true;
            
         }
-        if(!isGround) return;
+        if (!_isGround) return;
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            isMove= true;
+            isMove = true;
             _rab.SetInteger("player", (int)EMoveType.jump);
-            //transform.Translate(Vector3.up );
-            GetComponent<Rigidbody2D>().AddForce(Vector3.up * 250);
-            isGround = false;
+            //transform.Translate(Vector3.up);
+            //GetComponent<Rigidbody2D>().AddForce(Vector3.up * 250);
+            _isGround = false;
         }
         if (!isMove)
         {
@@ -114,7 +114,7 @@ public class Charactercontroller : MonoBehaviour
     {
         if(collision.gameObject.tag =="Ground")
         {
-            isGround = true;
+            _isGround = true;
         }
         if(collision.gameObject.tag == "Bullet2D")
         {
@@ -163,7 +163,7 @@ public class Charactercontroller : MonoBehaviour
 
     private void ResetPosition()
     {
-        transform.position = new Vector3(-6.2f,-2.4f,0);
+        _base.position = new Vector3(-6.2f,-2.4f,0);
     }
 
     public void SetHeroName(string _name)
@@ -174,21 +174,21 @@ public class Charactercontroller : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Ladder"))
+        if (collision.CompareTag("Ladder"))
         {
             isLadder = true;
             Debug.Log("true");
-            myrigidbody.gravityScale = 0;
+            //myrigidbody.gravityScale = 0;
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if(collision.CompareTag("Ladder"))
+        if (collision.CompareTag("Ladder"))
         {
             isLadder = false;
             Debug.Log("false");
-            myrigidbody.gravityScale = 1;
+            //myrigidbody.gravityScale = 1;
         }
     }
 }
