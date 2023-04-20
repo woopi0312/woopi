@@ -12,6 +12,7 @@ TagManager:
   - Slug
   - Goal
   - Event
+  - Monster
   layers:
   - Default
   - TransparentFX

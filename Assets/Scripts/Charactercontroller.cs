@@ -16,7 +16,7 @@ enum EMoveType
 
 public class Charactercontroller : MonoBehaviour
 {
-     Rigidbody2D myrigidbody;
+    [SerializeField] Rigidbody2D myrigidbody;
     [SerializeField] Transform _base;
     [SerializeField] float _speed;
     [SerializeField] int _attack;
@@ -25,6 +25,7 @@ public class Charactercontroller : MonoBehaviour
     [SerializeField] GameObject _uiPanel;
     [SerializeField] GameObject _clearPanel;
     [SerializeField] GameObject _cage;
+    float _maxHP = 3;
 
     Animator _rab;
 
@@ -42,7 +43,7 @@ public class Charactercontroller : MonoBehaviour
         _rab = gameObject.GetComponent<Animator>();
         Application.targetFrameRate = 30;
         rend = GetComponent<SpriteRenderer>();
-        myrigidbody=GetComponent<Rigidbody2D>();
+        
     }
 
 
@@ -118,7 +119,7 @@ public class Charactercontroller : MonoBehaviour
         }
         if(collision.gameObject.tag == "Bullet2D")
         {
-            ResetPosition();
+            //ResetPosition();
             _rab.SetInteger("player",3);
             _isHitted = true;
         }
@@ -136,7 +137,11 @@ public class Charactercontroller : MonoBehaviour
             _clearPanel.SetActive(true);
             _rab.SetInteger("player", (int)EMoveType.jump);
         }
-
+        if(collision.gameObject.tag== "Monster")
+        {
+            Debug.Log("충돌했습니다");
+            hitted();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -149,11 +154,21 @@ public class Charactercontroller : MonoBehaviour
     public void hitted()
     {
         if (_hp < 0) return;
-        _hp -= 5;
-        if (_hp < 0)
+        _hp -= 1;
+        if (rend.flipX == false)
+        {
+            myrigidbody.AddForce(new Vector2(-5, 1), ForceMode2D.Impulse);
+        }
+        if (rend.flipX == true) 
+        {
+            myrigidbody.AddForce(new Vector2(5, 1), ForceMode2D.Impulse);
+        }
+        _rab.SetInteger("player", 3);
+        if (_hp <= 0)
         {
             _isGameOver = true;
             _uiPanel.SetActive(true);
+            Time.timeScale = 0;
         }
     }
     public int getAttack()
