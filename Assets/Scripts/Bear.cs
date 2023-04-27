@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using JetBrains.Annotations;
 using UnityEngine;
 
 public class Bear : MonoBehaviour
 {
-    public float _speed;
+    [SerializeField] float _speed;
     public float _distance;
     public float _teldistance;
     public float _jumpPower;

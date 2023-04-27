@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.ConstrainedExecution;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -10,7 +6,7 @@ public class PlayerMove : MonoBehaviour
     [SerializeField] float _speed;
     public bool _isLadder = false;
     bool _isGround = false;
-    // Update is called once per frame
+   
 
     private void Start()
     {
@@ -59,7 +55,7 @@ public class PlayerMove : MonoBehaviour
     }
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.tag == "Ground")
+            if (collision.gameObject.CompareTag("Ground"))
             {
                 _isGround = true;
             }
@@ -70,7 +66,6 @@ public class PlayerMove : MonoBehaviour
         if (collision.CompareTag("Ladder"))
         {
             _isLadder = true;
-            Debug.Log("true");
             myrigidbody.gravityScale = 0;
         }
     }
@@ -80,7 +75,6 @@ public class PlayerMove : MonoBehaviour
         if (collision.CompareTag("Ladder"))
         {
             _isLadder = false;
-            Debug.Log("false");
             myrigidbody.gravityScale = 1;
         }
     }

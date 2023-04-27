@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Shooter : MonoBehaviour
@@ -33,8 +31,4 @@ public class Shooter : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
     }    
-        void Update()
-    {
-        
-    }
 }
