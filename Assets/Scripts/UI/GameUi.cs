@@ -11,6 +11,21 @@ public class GameUi : MonoBehaviour
     [SerializeField] Charactercontroller _Character;
     [SerializeField] Text _textName;
     [SerializeField] InputField _text;
+
+    public Text _name;
+    //public Text _time;
+    //public Text _position;
+    //public Text _hp;
+
+    void Start()
+    {
+        _name.text += DataManager.instance.nowPlayer.name;
+        //_time.text += DataManager.instance.nowPlayer.time.ToString();
+        //_position.text += DataManager.instance.nowPlayer.position;
+        //_hp.text += DataManager.instance.nowPlayer.hp.ToString();
+        Position();
+    }
+
     public void OnButtonToLobby()
     {
         SceneManager.LoadScene("Lobby");
@@ -46,5 +61,30 @@ public class GameUi : MonoBehaviour
     public void SetChangeName(string name)
     {
         _textName.text = name;
+    }
+
+    public void TimeUp()
+    {
+        DataManager.instance.nowPlayer.time++;
+        //_time.text = "시간은 : " + DataManager.instance.nowPlayer.time.ToString();
+    }
+
+    public void HpDown()
+    {
+        DataManager.instance.nowPlayer.hp--;
+        //_hp.text = "체력 : " + DataManager.instance.nowPlayer.hp.ToString();
+    }
+
+
+    public void Save()
+    {
+        DataManager.instance.nowPlayer.position = _Character.transform.position;
+        DataManager.instance.nowPlayer.time = RemainTime._rTime;
+        DataManager.instance.SaveData();
+    }
+
+    public void Position()
+    {
+        _Character.transform.position = DataManager.instance.nowPlayer.position;
     }
 }

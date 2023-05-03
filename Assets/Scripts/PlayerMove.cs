@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerMove : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class PlayerMove : MonoBehaviour
 
     private void Start()
     {
-        myrigidbody = GetComponent<Rigidbody2D>();
+        myrigidbody = GetComponent<Rigidbody2D>();      
     }
     void FixedUpdate()
     {

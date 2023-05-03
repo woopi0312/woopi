@@ -13,7 +13,7 @@ public class RemainTime : MonoBehaviour
 
    
     void Update()
-    {
+    {        
         _rTime += Time.deltaTime;
         if (_rTime < 0)
             _rTime = 0;
