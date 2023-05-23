@@ -5,9 +5,11 @@ public class PlayerMove : MonoBehaviour
 {
     Rigidbody2D myrigidbody;
     [SerializeField] float _speed;
+    public static int _hp = 3;
+    [SerializeField] GameObject _uiPanel;
     public bool _isLadder = false;
     bool _isGround = false;
-   
+    bool _isGameOver = false;
 
     private void Start()
     {
@@ -54,13 +56,35 @@ public class PlayerMove : MonoBehaviour
         }
 
     }
-        private void OnCollisionEnter2D(Collision2D collision)
+
+    public void hitted()
+    {
+        if (_hp < 0) return;
+        _hp--;
+        if (_hp <= 0)
         {
-            if (collision.gameObject.CompareTag("Ground"))
-            {
-                _isGround = true;
-            }
+            _isGameOver = true;
+            _uiPanel.SetActive(true);
+            Time.timeScale = 0;
         }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            _isGround = true;
+        }
+        if (collision.gameObject.tag == "Monster")
+        {
+            Debug.Log("충돌했습니다");
+            hitted();
+        }
+        if (collision.gameObject.tag == "Bullet2D")
+        {           
+            hitted();
+            Debug.Log("총알에 맞았습니다");
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

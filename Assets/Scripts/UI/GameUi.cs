@@ -9,6 +9,7 @@ public class GameUi : MonoBehaviour
     [SerializeField] GameObject _OptionPanel;
     [SerializeField] GameObject _OptionButton;
     [SerializeField] Charactercontroller _Character;
+    [SerializeField] PlayerMove _player;
     [SerializeField] Text _textName;
     [SerializeField] InputField _text;
 
@@ -24,6 +25,8 @@ public class GameUi : MonoBehaviour
         //_position.text += DataManager.instance.nowPlayer.position;
         //_hp.text += DataManager.instance.nowPlayer.hp.ToString();
         Position();
+        TimeUp();
+        HpDown();
     }
 
     public void OnButtonToLobby()
@@ -65,26 +68,29 @@ public class GameUi : MonoBehaviour
 
     public void TimeUp()
     {
-        DataManager.instance.nowPlayer.time++;
+        RemainTime._rTime=DataManager.instance.nowPlayer.time;
+        //DataManager.instance.nowPlayer.time++;
         //_time.text = "시간은 : " + DataManager.instance.nowPlayer.time.ToString();
     }
 
     public void HpDown()
     {
-        DataManager.instance.nowPlayer.hp--;
+        PlayerMove._hp=DataManager.instance.nowPlayer.hp;
+        //DataManager.instance.nowPlayer.hp--;
         //_hp.text = "체력 : " + DataManager.instance.nowPlayer.hp.ToString();
     }
 
 
     public void Save()
     {
-        DataManager.instance.nowPlayer.position = _Character.transform.position;
+        DataManager.instance.nowPlayer.position = _player.transform.position;
         DataManager.instance.nowPlayer.time = RemainTime._rTime;
+        DataManager.instance.nowPlayer.hp = PlayerMove._hp;
         DataManager.instance.SaveData();
     }
 
     public void Position()
     {
-        _Character.transform.position = DataManager.instance.nowPlayer.position;
+        _player.transform.position = DataManager.instance.nowPlayer.position;
     }
 }

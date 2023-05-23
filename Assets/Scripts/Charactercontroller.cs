@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -18,11 +15,10 @@ public class Charactercontroller : MonoBehaviour
 {
     [SerializeField] Rigidbody2D myrigidbody;
     [SerializeField] Transform _base;
-    [SerializeField] float _speed;
     [SerializeField] int _attack;
     [SerializeField] int _hp;
     [SerializeField] GameUi _gameUi;
-    [SerializeField] GameObject _uiPanel;
+
     [SerializeField] GameObject _clearPanel;
     [SerializeField] GameObject _cage;
     float _maxHP = 3;
@@ -63,30 +59,22 @@ public class Charactercontroller : MonoBehaviour
 
     void move()
     {
-        bool isMove = false;
-        //bool israbbits = false;
+        bool isMove = false;       
         if (Input.GetKey("d"))
         {
-            isMove = true;
-            //israbbits = false;
-            _rab.SetInteger("player", (int)EMoveType.right);
-            //transform.Translate(Vector2.right * Time.deltaTime * _speed);
+            isMove = true;        
+            _rab.SetInteger("player", (int)EMoveType.right);         
             rend.flipX = false;
         }
         if (Input.GetKey("s"))
         {
-            isMove= true;
-            //israbbits = false;
-            _rab.SetInteger("player", (int)EMoveType.down);
-            //transform.Translate(Vector2.down * Time.deltaTime * _speed);
+            isMove= true;         
+            _rab.SetInteger("player", (int)EMoveType.down);          
         }
         if (Input.GetKey("a"))
         {
-            isMove= true;
-            //v2 += Vector2.left * Time.deltaTime * _speed;
-            //israbbits = false;
-            _rab.SetInteger("player", (int)EMoveType.right);
-            //transform.Translate(Vector2.left * Time.deltaTime * _speed);
+            isMove= true;         
+            _rab.SetInteger("player", (int)EMoveType.right);        
             rend.flipX = true;
            
         }
@@ -94,21 +82,14 @@ public class Charactercontroller : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             isMove = true;
-            _rab.SetInteger("player", (int)EMoveType.jump);
-            //transform.Translate(Vector3.up);
-            //GetComponent<Rigidbody2D>().AddForce(Vector3.up * 250);
+            _rab.SetInteger("player", (int)EMoveType.jump);                       
             _isGround = false;
         }
         if (!isMove)
         {
             
             _rab.SetInteger("player", 0);
-        }
-
-        //else if(v2 != Vector3.zero)
-        //{
-        //    _rab.SetInteger("player", 0);
-        //}
+        }      
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -143,18 +124,9 @@ public class Charactercontroller : MonoBehaviour
             hitted();
         }
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.tag == "Event")
-        {
-            _cage.GetComponent<TilemapCollider2D>().enabled= false;
-        }
-    }
     public void hitted()
     {
         if (_hp < 0) return;
-        _hp -= 1;
         if (rend.flipX == false)
         {
             myrigidbody.AddForce(new Vector2(-5, 1), ForceMode2D.Impulse);
@@ -164,12 +136,6 @@ public class Charactercontroller : MonoBehaviour
             myrigidbody.AddForce(new Vector2(5, 1), ForceMode2D.Impulse);
         }
         _rab.SetInteger("player", 3);
-        if (_hp <= 0)
-        {
-            _isGameOver = true;
-            _uiPanel.SetActive(true);
-            Time.timeScale = 0;
-        }
     }
     public int getAttack()
     {
@@ -178,7 +144,7 @@ public class Charactercontroller : MonoBehaviour
 
     private void ResetPosition()
     {
-        _base.position = new Vector3(-6.2f,-2.4f,0);
+        _base.position = new Vector3(0f,0f,0);
     }
 
     public void SetHeroName(string _name)
@@ -192,8 +158,11 @@ public class Charactercontroller : MonoBehaviour
         if (collision.CompareTag("Ladder"))
         {
             isLadder = true;
-            Debug.Log("true");
-            //myrigidbody.gravityScale = 0;
+        }
+        if (collision.gameObject.tag == "Event")
+        {
+            Debug.Log("ºÎµúÈû");
+            _cage.GetComponent<TilemapCollider2D>().enabled = false;
         }
     }
 
@@ -201,9 +170,7 @@ public class Charactercontroller : MonoBehaviour
     {
         if (collision.CompareTag("Ladder"))
         {
-            isLadder = false;
-            Debug.Log("false");
-            //myrigidbody.gravityScale = 1;
+            isLadder = false;          
         }
     }
 }

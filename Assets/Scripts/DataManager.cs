@@ -30,15 +30,16 @@ public class DataManager : MonoBehaviour
         }
         else if (instance != this)
         {
-            Destroy(instance.gameObject);
+            Destroy(instance);
         }
         DontDestroyOnLoad(this.gameObject);
 
         path = Application.persistentDataPath + "/save";
+        Debug.Log(Application.persistentDataPath);
     }
     void Start()
     {
-        SaveData();
+        //SaveData();
     }
 
     public void SaveData()
