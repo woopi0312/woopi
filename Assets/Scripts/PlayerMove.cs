@@ -24,6 +24,14 @@ public class PlayerMove : MonoBehaviour
 
             myrigidbody.velocity = new Vector2(myrigidbody.velocity.x, ver * _speed);           
         }
+        if(Input.GetKeyDown(KeyCode.C))
+        {
+            _speed = 1;
+        }
+        if(Input.GetKeyUp(KeyCode.C)) 
+        {
+            _speed = 5;
+        }
     }
 
     public void move()
