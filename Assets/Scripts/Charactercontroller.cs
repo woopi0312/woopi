@@ -117,6 +117,7 @@ public class Charactercontroller : MonoBehaviour
             _isGameOver = true;
             _clearPanel.SetActive(true);
             _rab.SetInteger("player", (int)EMoveType.jump);
+            Time.timeScale=0;
         }
         if(collision.gameObject.tag== "Monster")
         {

@@ -53,14 +53,20 @@ public class PlayerMove : MonoBehaviour
             //isMove = true;     
             transform.Translate(Vector2.left * Time.deltaTime * _speed);
         }
-        if (!_isGround) return;
+        if (!_isGround && GetComponent<FixedJoint2D>() == null) return;
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             //isMove = true;
             //_rab.SetInteger("player", (int)EMoveType.jump);
             //transform.Translate(Vector3.up);
             GetComponent<Rigidbody2D>().AddForce(Vector3.up * 250);
-            _isGround = false;
+            if (GetComponent<FixedJoint2D>()!=null)
+            { 
+                Destroy(GetComponent<FixedJoint2D>());
+            }
+                _isGround = false;
+            
         }
 
     }
