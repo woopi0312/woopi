@@ -45,7 +45,7 @@ public class DataManager : MonoBehaviour
     public void SaveData()
     {
         string data = JsonUtility.ToJson(nowPlayer);
-        File.WriteAllText(path + nowSlot.ToString(), data);
+        File.WriteAllText(path + nowSlot.ToString(), data);//
     }
     
     public void LoadData()

@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Globalization;
 using System.IO;
 
 public class Select : MonoBehaviour
@@ -56,7 +55,7 @@ public class Select : MonoBehaviour
         if (!_savefile[DataManager.instance.nowSlot])
         {
             DataManager.instance.nowPlayer.name = _playerName.text;
-            DataManager.instance.SaveData();
+            DataManager.instance.SaveData();//
         }
         SceneManager.LoadScene("Main");
     }
