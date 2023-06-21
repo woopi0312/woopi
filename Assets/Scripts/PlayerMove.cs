@@ -1,3 +1,5 @@
+using Unity.VisualScripting;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -14,10 +16,61 @@ public class PlayerMove : MonoBehaviour
     bool _isGround = false;
     bool _isGameOver = false;
 
+    float _timecheck=0;
+    float _time = 0;
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
         myrigidbody = GetComponent<Rigidbody2D>();      
+    }
+
+    private void Update()
+    {
+        _timecheck += Time.deltaTime;
+        if (_timecheck>=1 )
+        {
+            _time += 1;
+            Debug.Log("시간" + _time);
+            _timecheck = 0;
+        }
+        _isGround = false;
+
+        if (Physics2D.Raycast(transform.position - Vector3.right*0.3f, -transform.up,  0.7f, 1 << LayerMask.NameToLayer("Ground")))
+        {          
+            _isGround = true;
+        }
+        if (Physics2D.Raycast(transform.position + Vector3.right*0.3f, -transform.up, 0.7f, 1 << LayerMask.NameToLayer("Ground")))
+        {
+            _isGround = true;
+        }
+        if (!_isGround && GetComponent<FixedJoint2D>() == null) return;
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            //isMove = true;
+            //_rab.SetInteger("player", (int)EMoveType.jump);
+            //transform.Translate(Vector3.up);
+            if (transform.GetComponent<FixedJoint2D>() != null)
+            {
+                Destroy(GetComponent<FixedJoint2D>());
+            }
+            GetComponent<Rigidbody2D>().AddForce(Vector3.up * 5, ForceMode2D.Impulse);
+            //_isGround = false;
+            PlaySound("Jump");
+        }
+    }
+    public void addFixedJoint(GameObject _basket)
+    {
+        _timecheck += Time.deltaTime;
+        if (_timecheck + 0.5 > Time.realtimeSinceStartup)
+        {
+            if (transform.GetComponent<FixedJoint2D>() != null)
+            {
+                FixedJoint2D _fixedjoint2d = transform.AddComponent<FixedJoint2D>();
+                _fixedjoint2d.connectedBody = _basket.GetComponent<Rigidbody2D>();
+                _fixedjoint2d.autoConfigureConnectedAnchor = false;
+            }
+            _timecheck = 0;
+        }
     }
     void FixedUpdate()
     {       
@@ -58,21 +111,8 @@ public class PlayerMove : MonoBehaviour
             //isMove = true;     
             transform.Translate(Vector2.left * Time.deltaTime * _speed);
         }
-        if (!_isGround && GetComponent<FixedJoint2D>() == null) return;
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            //isMove = true;
-            //_rab.SetInteger("player", (int)EMoveType.jump);
-            //transform.Translate(Vector3.up);
-            GetComponent<Rigidbody2D>().AddForce(Vector3.up * 250);
-            if (GetComponent<FixedJoint2D>()!=null)
-            { 
-                Destroy(GetComponent<FixedJoint2D>());
-            }
-                _isGround = false;
-            PlaySound("Jump");
-        }
+       
 
     }
 
@@ -108,10 +148,10 @@ public class PlayerMove : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            _isGround = true;
-        }
+        //if (collision.gameObject.CompareTag("Ground") && collision.contacts[0].normal.y>=0.45)
+        //{
+        //    _isGround = true;
+        //}
         if (collision.gameObject.tag == "Monster")
         {
             Debug.Log("충돌했습니다");

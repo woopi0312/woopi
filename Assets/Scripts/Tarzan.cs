@@ -8,12 +8,11 @@ public class Tarzan : MonoBehaviour
     {
         if(collision.transform.CompareTag("Player"))
         {
-            if (collision.transform.GetComponent<FixedJoint2D>() == null)
+            if(collision.transform.GetComponent<PlayerMove>() != null)
             {
-                FixedJoint2D _joint = collision.transform.AddComponent<FixedJoint2D>();
-                _joint.connectedBody = _basket.GetComponent<Rigidbody2D>();
-                _joint.autoConfigureConnectedAnchor = false;
+                collision.transform.GetComponent<PlayerMove>().addFixedJoint(_basket);
             }
+            
         }
     }
 }
