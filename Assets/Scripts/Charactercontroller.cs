@@ -20,6 +20,7 @@ public class Charactercontroller : MonoBehaviour
     [SerializeField] GameUi _gameUi;
 
     [SerializeField] GameObject _clearPanel;
+    [SerializeField] GameObject _deathPanel;
     [SerializeField] GameObject _cage;
     float _maxHP = 3;
 
@@ -106,7 +107,11 @@ public class Charactercontroller : MonoBehaviour
         }
         if(collision.gameObject.tag == "Trap")
         {
-            ResetPosition();
+            _isGameOver = true;
+            _deathPanel.SetActive(true);
+            _rab.SetInteger("player", (int)EMoveType.jump);
+            Time.timeScale = 0;
+
         }
         if(collision.gameObject.tag == "Slug")
         {

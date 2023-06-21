@@ -59,4 +59,9 @@ public class Select : MonoBehaviour
         }
         SceneManager.LoadScene("Main");
     }
+
+    public void gameExit()
+    {
+        Application.Quit();
+    }
 }

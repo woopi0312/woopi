@@ -8,9 +8,11 @@ public class Shooter : MonoBehaviour
     [SerializeField] float _gap;
     [SerializeField] int _count;
     [SerializeField] Transform _target;
+    AudioSource _audioSource;
     void Start()
     {
         StartCoroutine(CoInfiniteMultiShot());
+        _audioSource = GetComponent<AudioSource>();
     }
 
     IEnumerator CoInfiniteMultiShot()
@@ -29,6 +31,7 @@ public class Shooter : MonoBehaviour
                 temp.GetComponent<Bullet>().Init(dir);
             }
             yield return new WaitForSeconds(1f);
+                _audioSource.Play();
         }
     }    
 }

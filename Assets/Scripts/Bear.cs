@@ -31,7 +31,7 @@ public class Bear : MonoBehaviour
             hitdia = new RaycastHit2D();
             if (hit || hitdia)
             {
-                 rig.velocity = Vector2.up * _jumpPower;
+                // rig.velocity = Vector2.up * _jumpPower;
             }
 
             //if (Vector2.Distance(_player.position, transform.position) > _teldistance) 텔레포트

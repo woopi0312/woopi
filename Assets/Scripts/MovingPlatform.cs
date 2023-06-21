@@ -19,6 +19,7 @@ public class MovingPlatform : MonoBehaviour
         if(collision.transform.CompareTag("Player"))
         {
             collision.transform.SetParent(transform);
+            _speed = 10;
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
@@ -26,6 +27,7 @@ public class MovingPlatform : MonoBehaviour
         if (collision.transform.CompareTag("Player"))
         {
             collision.transform.SetParent(null);
+            _speed = 1;
         }
     }
     void FixedUpdate()

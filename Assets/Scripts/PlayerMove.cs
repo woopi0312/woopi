@@ -4,19 +4,23 @@ using UnityEngine.UIElements;
 public class PlayerMove : MonoBehaviour
 {
     Rigidbody2D myrigidbody;
+    AudioSource _audioSource;
     [SerializeField] float _speed;
-    public static int _hp = 3;
     [SerializeField] GameObject _uiPanel;
+    public AudioClip jumpAudio;
+    public AudioClip moveAudio;
+    public static int _hp = 3;
     public bool _isLadder = false;
     bool _isGround = false;
     bool _isGameOver = false;
 
     private void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         myrigidbody = GetComponent<Rigidbody2D>();      
     }
     void FixedUpdate()
-    {
+    {       
         move();
         if (_isLadder == true)
         {
@@ -30,7 +34,7 @@ public class PlayerMove : MonoBehaviour
         }
         if(Input.GetKeyUp(KeyCode.C)) 
         {
-            _speed = 5;
+            _speed = 3;
         }
     }
 
@@ -42,6 +46,7 @@ public class PlayerMove : MonoBehaviour
         {
             //isMove = true;         
             transform.Translate(Vector2.right * Time.deltaTime * _speed);
+            //PlaySound("Move");
         }
         if (Input.GetKey("s"))
         {
@@ -66,7 +71,7 @@ public class PlayerMove : MonoBehaviour
                 Destroy(GetComponent<FixedJoint2D>());
             }
                 _isGround = false;
-            
+            PlaySound("Jump");
         }
 
     }
@@ -81,6 +86,25 @@ public class PlayerMove : MonoBehaviour
             _uiPanel.SetActive(true);
             Time.timeScale = 0;
         }
+    }
+    float _lasttime;
+    void PlaySound(string action)
+    {
+        switch(action)
+        {
+            case "Move":
+                if(_lasttime+0.4>=Time.realtimeSinceStartup)
+                {
+                    return;
+                }
+                _audioSource.clip = moveAudio;
+                _lasttime = Time.realtimeSinceStartup;
+                break;
+            case "Jump":
+                _audioSource.clip = jumpAudio;
+                break;
+        }
+        _audioSource.Play();
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
