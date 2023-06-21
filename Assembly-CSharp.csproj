@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{BDB02FDC-D2A7-90DD-2B50-6D78DBCD47C8}</ProjectGuid>
+    <ProjectGuid>{FE5CA586-6374-4BAA-FEC5-96AF9F4A3D61}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -62,6 +62,7 @@
     <Compile Include="Assets\Scripts\Monster.cs" />
     <Compile Include="Assets\Scripts\Bear.cs" />
     <Compile Include="Assets\Scripts\UI\HPGauge.cs" />
+    <Compile Include="Assets\Scripts\background.cs" />
     <Compile Include="Assets\Scripts\UI\LobbyGameUi.cs" />
     <Compile Include="Assets\Scripts\PlayerMove.cs" />
     <Compile Include="Assets\Scripts\Shooter.cs" />
