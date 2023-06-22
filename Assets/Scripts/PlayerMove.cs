@@ -26,15 +26,20 @@ public class PlayerMove : MonoBehaviour
 
     private void Update()
     {
-        _timecheck += Time.deltaTime;
-        if (_timecheck>=1 )
-        {
-            _time += 1;
-            Debug.Log("시간" + _time);
-            _timecheck = 0;
-        }
+        //_timecheck += Time.deltaTime;
+        //if (_timecheck>=1 )
+        //{
+        //    _time += 1;
+        //    Debug.Log("시간" + _time);
+        //    _timecheck = 0;
+        //}
         _isGround = false;
-
+        Debug.DrawRay(transform.position - transform.up * 0.5f, -transform.up*0.7f,Color.red,2);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position- transform.up * 0.5f, -transform.up, 0.7f, 1 << LayerMask.NameToLayer("MovingPlatForm"));
+        if(hit)
+        {
+            hit.collider.GetComponent<TrapMovingPlatform>().speedUP();
+        }
         if (Physics2D.Raycast(transform.position - Vector3.right*0.3f, -transform.up,  0.7f, 1 << LayerMask.NameToLayer("Ground")))
         {          
             _isGround = true;
@@ -52,6 +57,7 @@ public class PlayerMove : MonoBehaviour
             if (transform.GetComponent<FixedJoint2D>() != null)
             {
                 Destroy(GetComponent<FixedJoint2D>());
+                _timecheck = Time.realtimeSinceStartup;
             }
             GetComponent<Rigidbody2D>().AddForce(Vector3.up * 5, ForceMode2D.Impulse);
             //_isGround = false;
@@ -59,17 +65,15 @@ public class PlayerMove : MonoBehaviour
         }
     }
     public void addFixedJoint(GameObject _basket)
-    {
-        _timecheck += Time.deltaTime;
-        if (_timecheck + 0.5 > Time.realtimeSinceStartup)
+    { 
+        if (_timecheck + 0.5 <= Time.realtimeSinceStartup)
         {
-            if (transform.GetComponent<FixedJoint2D>() != null)
+            if (transform.GetComponent<FixedJoint2D>() == null)
             {
                 FixedJoint2D _fixedjoint2d = transform.AddComponent<FixedJoint2D>();
                 _fixedjoint2d.connectedBody = _basket.GetComponent<Rigidbody2D>();
                 _fixedjoint2d.autoConfigureConnectedAnchor = false;
-            }
-            _timecheck = 0;
+            }          
         }
     }
     void FixedUpdate()

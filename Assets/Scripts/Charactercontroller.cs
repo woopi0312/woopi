@@ -22,6 +22,7 @@ public class Charactercontroller : MonoBehaviour
     [SerializeField] GameObject _clearPanel;
     [SerializeField] GameObject _deathPanel;
     [SerializeField] GameObject _cage;
+    [SerializeField] Bear _bear;
     float _maxHP = 3;
 
     Animator _rab;
@@ -168,6 +169,7 @@ public class Charactercontroller : MonoBehaviour
         if (collision.gameObject.tag == "Event")
         {
             Debug.Log("ºÎµúÈû");
+            _bear.setOpenCage();
             _cage.GetComponent<TilemapCollider2D>().enabled = false;
         }
     }

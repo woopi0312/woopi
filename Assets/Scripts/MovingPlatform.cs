@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
@@ -18,16 +16,14 @@ public class MovingPlatform : MonoBehaviour
     {
         if(collision.transform.CompareTag("Player"))
         {
-            collision.transform.SetParent(transform);
-            _speed = 10;
+            collision.transform.SetParent(transform);            
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.transform.CompareTag("Player"))
         {
-            collision.transform.SetParent(null);
-            _speed = 1;
+            collision.transform.SetParent(null);           
         }
     }
     void FixedUpdate()

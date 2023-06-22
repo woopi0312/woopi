@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Bear : MonoBehaviour
 {
+    [SerializeField] bool _cagetype;
     [SerializeField] float _speed;
     public float _distance;
     public float _teldistance;
@@ -16,32 +17,36 @@ public class Bear : MonoBehaviour
         _player = GameObject.Find("PlayerBase").transform;
         Physics2D.IgnoreLayerCollision(9, 7);
     }
-
+    public void setOpenCage()
+    {
+        _cagetype = false;
+    }
     
     void Update()
     {
-        if(Mathf.Abs(transform.position.x - _player.position.x) >_distance) 
-        { 
-            transform.Translate(new Vector2(-1, 0) * Time.deltaTime * _speed);
-            
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right * -1f,0.5f,groundLayer);
-
-            RaycastHit2D hitdia =Physics2D.Raycast(transform.position, new Vector2(1 * DirectionBear(), 1), 2f,groundLayer);
-            if (_player.position.y - transform.position.y <= 0)
-            hitdia = new RaycastHit2D();
-            if (hit || hitdia)
+        if (_cagetype == true)
+            return;
+            if (Mathf.Abs(transform.position.x - _player.position.x) > _distance)
             {
-                // rig.velocity = Vector2.up * _jumpPower;
-            }
+                transform.Translate(new Vector2(-1, 0) * Time.deltaTime * _speed);
 
-            //if (Vector2.Distance(_player.position, transform.position) > _teldistance) 텔레포트
-            //{
-            //    transform.position = (_player.position );
-                
-            //}
-           
-        }
+                RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right * -1f, 0.5f, groundLayer);
 
+                RaycastHit2D hitdia = Physics2D.Raycast(transform.position, new Vector2(1 * DirectionBear(), 1), 2f, groundLayer);
+                if (_player.position.y - transform.position.y <= 0)
+                    hitdia = new RaycastHit2D();
+                if (hit || hitdia)
+                {
+                    // rig.velocity = Vector2.up * _jumpPower;
+                }
+
+                //if (Vector2.Distance(_player.position, transform.position) > _teldistance) 텔레포트
+                //{
+                //    transform.position = (_player.position );
+
+                //}
+
+            }       
     }
         //public ParticleSystem _tel;
 

@@ -11,8 +11,7 @@ public class Tarzan : MonoBehaviour
             if(collision.transform.GetComponent<PlayerMove>() != null)
             {
                 collision.transform.GetComponent<PlayerMove>().addFixedJoint(_basket);
-            }
-            
+            }          
         }
     }
 }
