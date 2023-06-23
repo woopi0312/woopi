@@ -13,6 +13,7 @@ TagManager:
   - Goal
   - Event
   - Monster
+  - Star
   layers:
   - Default
   - TransparentFX

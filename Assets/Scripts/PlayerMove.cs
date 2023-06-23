@@ -1,12 +1,10 @@
-using Unity.VisualScripting;
-using UnityEditor.SceneManagement;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class PlayerMove : MonoBehaviour
 {
     Rigidbody2D myrigidbody;
     AudioSource _audioSource;
+    Charactercontroller _charactercontroller;
     [SerializeField] float _speed;
     [SerializeField] GameObject _uiPanel;
     public AudioClip jumpAudio;
@@ -21,7 +19,10 @@ public class PlayerMove : MonoBehaviour
     private void Start()
     {
         _audioSource = GetComponent<AudioSource>();
-        myrigidbody = GetComponent<Rigidbody2D>();      
+        myrigidbody = GetComponent<Rigidbody2D>();
+        _charactercontroller = GetComponentInChildren<Charactercontroller>();
+        Camera.main.transform.SetParent(transform);
+        Camera.main.transform.localPosition = new Vector3(2.747559f, 2.112718f, -10.088f);
     }
 
     private void Update()
@@ -70,14 +71,15 @@ public class PlayerMove : MonoBehaviour
         {
             if (transform.GetComponent<FixedJoint2D>() == null)
             {
-                FixedJoint2D _fixedjoint2d = transform.AddComponent<FixedJoint2D>();
+                FixedJoint2D _fixedjoint2d = gameObject.AddComponent<FixedJoint2D>();
                 _fixedjoint2d.connectedBody = _basket.GetComponent<Rigidbody2D>();
                 _fixedjoint2d.autoConfigureConnectedAnchor = false;
             }          
         }
     }
     void FixedUpdate()
-    {       
+    {
+        if (_isGameOver) return;
         move();
         if (_isLadder == true)
         {
@@ -126,9 +128,10 @@ public class PlayerMove : MonoBehaviour
         _hp--;
         if (_hp <= 0)
         {
+            _charactercontroller.GameOver();
             _isGameOver = true;
-            _uiPanel.SetActive(true);
-            Time.timeScale = 0;
+            //_uiPanel.SetActive(true);
+            //Time.timeScale = 0;
         }
     }
     float _lasttime;
@@ -165,6 +168,10 @@ public class PlayerMove : MonoBehaviour
         {           
             hitted();
             Debug.Log("총알에 맞았습니다");
+        }
+        if (collision.gameObject.tag == "Trap")
+        {
+            _isGameOver = true; 
         }
     }
 

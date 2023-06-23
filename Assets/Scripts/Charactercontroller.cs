@@ -26,7 +26,8 @@ public class Charactercontroller : MonoBehaviour
     float _maxHP = 3;
 
     Animator _rab;
-
+    Collider2D _collider;
+    public static int _starCount = 0;
     bool _isGround = false;
     bool _isGameOver = false;
     bool _isHitted = false;
@@ -39,6 +40,7 @@ public class Charactercontroller : MonoBehaviour
     void Start()
     {
         _rab = gameObject.GetComponent<Animator>();
+        _collider = GetComponent<Collider2D>();
         Application.targetFrameRate = 30;
         rend = GetComponent<SpriteRenderer>();
         
@@ -88,8 +90,7 @@ public class Charactercontroller : MonoBehaviour
             _isGround = false;
         }
         if (!isMove)
-        {
-            
+        {           
             _rab.SetInteger("player", 0);
         }      
     }
@@ -102,17 +103,12 @@ public class Charactercontroller : MonoBehaviour
         }
         if(collision.gameObject.tag == "Bullet2D")
         {
-            //ResetPosition();
             _rab.SetInteger("player",3);
             _isHitted = true;
         }
         if(collision.gameObject.tag == "Trap")
         {
-            _isGameOver = true;
-            _deathPanel.SetActive(true);
-            _rab.SetInteger("player", (int)EMoveType.jump);
-            Time.timeScale = 0;
-
+            GameOver();
         }
         if(collision.gameObject.tag == "Slug")
         {
@@ -130,10 +126,16 @@ public class Charactercontroller : MonoBehaviour
             Debug.Log("충돌했습니다");
             hitted();
         }
+        if(collision.gameObject.tag == "Star")
+        {
+            collision.gameObject.SetActive(false);
+            _starCount++;
+        }
     }
     public void hitted()
     {
         if (_hp < 0) return;
+        _rab.SetInteger("player",(int)EMoveType.hurt);
         if (rend.flipX == false)
         {
             myrigidbody.AddForce(new Vector2(-5, 1), ForceMode2D.Impulse);
@@ -142,7 +144,6 @@ public class Charactercontroller : MonoBehaviour
         {
             myrigidbody.AddForce(new Vector2(5, 1), ForceMode2D.Impulse);
         }
-        _rab.SetInteger("player", 3);
     }
     public int getAttack()
     {
@@ -159,7 +160,22 @@ public class Charactercontroller : MonoBehaviour
         _heroName = _name;
         _gameUi.SetChangeName(_heroName);
     }
+    
+    public void GameOver()
+    {
+        _isGameOver = true;
+        _rab.SetInteger("player", (int)EMoveType.hurt);
+        myrigidbody.AddForce(new Vector2(0, 5), ForceMode2D.Impulse);
+        Camera.main.transform.SetParent(null);
+        _collider.enabled = false;
+        Invoke("deathPanel",1.5f);
+    }
 
+    private void deathPanel()
+    {
+        _deathPanel.SetActive(true);
+
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Ladder"))
