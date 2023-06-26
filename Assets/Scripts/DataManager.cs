@@ -8,8 +8,8 @@ public class PlayerData
     //이름 체력 위치 남은시간. 
     public string name;
     public int hp=3;
-    public Vector2 position;
-    public float time=0;
+    public Vector2 position=new Vector2(-7,-1.7f);
+    public float time=100;
 }
 
 public class DataManager : MonoBehaviour

@@ -92,5 +92,5 @@ public class GameUi : MonoBehaviour
     public void Position()
     {
         _player.transform.position = DataManager.instance.nowPlayer.position;
-    }
+    }  
 }

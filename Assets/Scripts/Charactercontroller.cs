@@ -59,6 +59,10 @@ public class Charactercontroller : MonoBehaviour
             //myrigidbody.velocity = new Vector2(myrigidbody.velocity.x, ver * _speed);
             _rab.SetInteger("player", (int)EMoveType.climb);
         }
+        if(RemainTime._rTime == 0) 
+        {
+            GameOver();
+        }
     }
 
     void move()

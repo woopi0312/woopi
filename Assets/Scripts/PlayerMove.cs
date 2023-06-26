@@ -64,6 +64,15 @@ public class PlayerMove : MonoBehaviour
             //_isGround = false;
             PlaySound("Jump");
         }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            _speed = 1;
+        }
+        if (Input.GetKeyUp(KeyCode.C))
+        {
+            _speed = 3;
+        }
     }
     public void addFixedJoint(GameObject _basket)
     { 
@@ -86,15 +95,7 @@ public class PlayerMove : MonoBehaviour
             float ver = Input.GetAxis("Vertical");
 
             myrigidbody.velocity = new Vector2(myrigidbody.velocity.x, ver * _speed);           
-        }
-        if(Input.GetKeyDown(KeyCode.C))
-        {
-            _speed = 1;
-        }
-        if(Input.GetKeyUp(KeyCode.C)) 
-        {
-            _speed = 3;
-        }
+        }      
     }
 
     public void move()

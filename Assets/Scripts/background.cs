@@ -15,6 +15,6 @@ public class background : MonoBehaviour
     
     void Update()
     {
-        //_background.transform.Translate(_playebase.transform.position);
+        _background.transform.Translate(_playebase.transform.position);
     }
 }
